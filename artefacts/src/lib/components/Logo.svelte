@@ -1,0 +1,1 @@
+<a href="/" class="text-5xl text-gray-400">Artefacts</a>

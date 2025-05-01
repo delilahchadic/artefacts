@@ -1,0 +1,29 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+
+#wiki a {
+  color: blue; /* Typically a shade of blue */
+  text-decoration: underline;
+  cursor: pointer; /* Indicates it's interactive */
+}
+
+/* Styles for visited links */
+#wiki a:visited {
+  color: purple; /* Typically a shade of purple */
+}
+
+/* Styles for hovered links */
+#wiki a:hover {
+  text-decoration: underline; /* Often remains, but can change */
+  /* color: (often darkens or changes slightly from the default) */
+}
+
+/* Styles for active (when clicked) links */
+#wiki a:active {
+  color: red; /* Often red to provide immediate feedback */
+}
+
+body {
+  font-family: 'Crimson Text', serif;
+}
