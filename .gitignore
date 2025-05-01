@@ -1,0 +1,35 @@
+# Django Specific
+*.pyc
+__pycache__/
+local_settings.py
+db.sqlite3
+media/  # If you're not tracking user-uploaded media in Git
+static/* # If your static files are collected here during deployment
+!static/.gitkeep  # Keep this to ensure the directory exists
+.env
+.venv/
+env/
+venv/
+
+# Svelte/Node.js Specific
+node_modules/
+dist/
+build/
+.svelte-kit/
+.shadow-cache/
+.DS_Store  # macOS specific
+yarn-error.log
+package-lock.json # If you're using npm, keep this
+pnpm-lock.yaml  # If you're using pnpm, keep this
+
+# General Python
+*.log
+*.egg-info/
+.coverage
+.tox/
+*.swp  # Vim swap files
+~$* # LibreOffice/Microsoft Office temporary files
+
+# General OS Specific
+.DS_Store
+Thumbs.db
