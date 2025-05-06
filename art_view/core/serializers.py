@@ -10,6 +10,8 @@ from .models import (
     WorkData,
     DocumentType,
     Document,
+    Gallery,
+    GalleryItem,
 )
 
 class PersonTypeSerializer(serializers.ModelSerializer):
@@ -32,7 +34,14 @@ class PersonDataSerializer(serializers.ModelSerializer):
         model = PersonData
         fields = '__all__'
 
+class DocumentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Document
+        fields = '__all__'
+
+
 class WorkSerializer(serializers.ModelSerializer):
+    documents = DocumentSerializer(many=True,read_only=True)
     class Meta:
         model = Work
         fields = '__all__'
@@ -57,7 +66,18 @@ class DocumentTypeSerializer(serializers.ModelSerializer):
         model = DocumentType
         fields = '__all__'
 
-class DocumentSerializer(serializers.ModelSerializer):
+
+
+
+class GalleryItemSerializer(serializers.ModelSerializer):
+    work = WorkSerializer(read_only=True)
+
     class Meta:
-        model = Document
+        model = GalleryItem
+        fields = '__all__'
+
+class GallerySerializer(serializers.ModelSerializer):
+    gallery_items = GalleryItemSerializer(many=True, read_only=True)
+    class Meta:
+        model = Gallery
         fields = '__all__'

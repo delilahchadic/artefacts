@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class PersonType(models.Model):
@@ -68,9 +69,19 @@ class DocumentType(models.Model):
     return self.name
 
 class Document(models.Model):
-  work = models.ForeignKey(Work, on_delete=models.CASCADE, related_name="doucments")
-  type = models.ForeignKey(DocumentType, on_delete=models.CASCADE, related_name="documents")
+  work = models.ForeignKey(Work, on_delete=models.CASCADE, related_name="documents")
+  type = models.ForeignKey(DocumentType, on_delete=models.CASCADE, related_name="document_types")
   link = models.URLField()
 
   def __str__(self):
     return f"{self.work} - {self.type}"
+
+class Gallery(models.Model):
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
+  name = models.CharField()
+  description = models.TextField(null=True, blank=True)
+
+class GalleryItem(models.Model):
+  gallery = models.ForeignKey(Gallery, on_delete=models.CASCADE,related_name='gallery_items')
+  work = models.ForeignKey(Work, on_delete=models.CASCADE)
+  index = models.IntegerField(default=0)

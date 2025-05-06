@@ -13,7 +13,9 @@
   let label = $state("");
   let metadata = $state<{label: string; value: string}[]>([]);
   let imageurl = $state("");
+  let images = $state([]);
   let iiif_link = $state("");
+  let description = $state("");
   interface Work {
     id: number;
     name: string; // Add the 'name' property
@@ -37,10 +39,12 @@
     label = callJson.work.name;
     metadata = test.getMetadata();
     imageurl = test.getAllImageUrls()[0];
+    images = test.getAllImageUrls();
     const manifestCall = await fetch(callJson.link);
     const manifestJson = await manifestCall.json()
 
     iiif = manifestJson
+    description = test.getDescription();
   });
   </script>
 
@@ -61,13 +65,24 @@
     </div>
     </div>
     <div id="wiki" class=" text-center">
-      <p class="text-sm mr-40">{@html iiif?.description?.[0]}</p>
+      <p class="text-sm mr-40">{@html description}</p>
       <a  class="block" href={iiif_link}>{iiif_link}</a>
       {#each creators as creator}
         <a href='/person/{creator.id}/'> more by {creator.first_name} {creator.last_name}</a>
       {/each}
     </div>
   </div>
+
+  <h1 class="text-2x">All Images:</h1>
+  <div class="grid max-h-[20vh] grid-cols-5">
+    {#each images as image}
+    <div class=" p-5 m-5 shadow-2xl">
+      <img src={image}/>
+    </div>
+    
+    {/each}
+  </div>
+  
 </div>
  
 

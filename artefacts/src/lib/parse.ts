@@ -72,6 +72,25 @@ class IIIFParser{
     return imageUrls;
   }
 
+  getDescription(): string{
+    if (this.manifestData?.description?.[0]?.value){
+      return this.manifestData?.description?.[0]?.value;
+    }
+    if (this.manifestData?.description?.[0]){
+      return this.manifestData?.description?.[0];
+    }
+
+    let metadata = this.getMetadata();
+    let results = metadata.filter((item:any) =>
+      item.label[0] === "Alternative Text" || item.label[0] === "Description"
+    );
+    console.log(metadata);
+    if(results[0]){
+      return results[0].value;
+    }
+    return "";
+  }
+
   getThumbnailUrl(): string | undefined {
     // ... (thumbnail logic - can be refined further for v3) ...
     if (this.manifestData?.thumbnail?.['@id']) {

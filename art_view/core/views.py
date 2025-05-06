@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework import generics
-from .models import Person, Work, Document, PersonData, PersonType, PersonDataType
-from .serializers import PersonDataSerializer, PersonSerializer, WorkSerializer, DocumentSerializer
+from .models import Gallery, GalleryItem, Person, Work, Document, PersonData, PersonType, PersonDataType
+from .serializers import GalleryItemSerializer, GallerySerializer, PersonDataSerializer, PersonSerializer, WorkSerializer, DocumentSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
@@ -84,6 +84,20 @@ def get_iiif(request, work_id):
          return Response({'error': 'Deck not found'}, status=404) 
    except Document.DoesNotExist:
       return Response({'error': 'Deck not found'}, status=404) 
+   
+@api_view(['GET'])
+def get_gallery(request, gallery_id):
+   try:
+      gallery =  Gallery.objects.prefetch_related('gallery_items__work').get(pk=gallery_id)
+      # gallery_items = GalleryItem.objects.filter(gallery=gallery_id)
+      gallery_serializer = GallerySerializer(gallery)
+      # gallery_items_serializer = GalleryItemSerializer(gallery_items, many=True)
+      
+         
+      return Response({"gallery": gallery_serializer.data})
+   except Gallery.DoesNotExist:
+      return Response({'error': 'Gallery not found'}, status=404) 
+
    
 def persons(request):
   person_list = Person.objects.all()

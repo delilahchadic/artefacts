@@ -26,4 +26,5 @@ urlpatterns = [
     path('work/<int:work_id>/IIIF/', views.get_iiif),
     path('works/', views.WorkList.as_view()),
     path('person/<int:person_id>/image', views.get_image),
+    path('gallery/<int:gallery_id>/', views.get_gallery),
 ]

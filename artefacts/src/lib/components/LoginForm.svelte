@@ -13,9 +13,15 @@
   });
 </script>
 
-<a class="max-w-[20vw] p-4 m-4 shadow-md bg-white" href="/person/{person.id}">
+<!-- <a class="max-w-[20vw] p-4 m-4 shadow-md" href="/person/{person.id}">
   <h1 class="text-xs">{person.first_name} {person.last_name}</h1>
   <img  class="" src={imageUrl}/>
-</a>
+</a> -->
 
-
+<form>
+  <label for="email">Email:</label><br>
+  <input type="text" id="email" name="email"><br>
+  <label class="mt-5" for="password">Password:</label><br>
+  <input type="password" id="password" name="password"><br>
+  <button class="rounded-md bg-black text-white p-2 mt-5" type="submit" value="Submit">Submit</button>
+</form>

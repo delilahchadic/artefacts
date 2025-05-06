@@ -10,6 +10,8 @@ from .models import (
     WorkData,
     DocumentType,
     Document,
+    Gallery,
+    GalleryItem
 )
 
 @admin.register(PersonType)
@@ -64,3 +66,13 @@ class DocumentTypeAdmin(admin.ModelAdmin):
 class DocumentAdmin(admin.ModelAdmin):
     list_display = ('work', 'type', 'link')
     list_filter = ('work', 'type')
+
+@admin.register(Gallery)
+class GalleryAdmin(admin.ModelAdmin):
+    list_display=('name', 'user','description')
+    # list_filter=('user')
+
+@admin.register(GalleryItem)
+class GalleryItemAdmin(admin.ModelAdmin):
+    list_display=('work', 'gallery','index')
+    # list_filter=('user','gallery')

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import '../app.css';
 	import Logo from '$lib/components/Logo.svelte';
+    import LoginForm from '$lib/components/LoginForm.svelte';
 	
 	let { children } = $props();
 </script>
@@ -11,4 +12,12 @@
 </svelte:head>
 
 <Logo></Logo>
-{@render children()}
+<div class="grid grid-cols-8">
+	<div class="col-span-1"></div>
+	<div class="col-span-6">{@render children()}</div>
+	<div class="col-span-1">
+		<!-- <LoginForm></LoginForm> -->
+	</div>
+</div>
+
+<!-- {@render children()} -->
