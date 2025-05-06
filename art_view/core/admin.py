@@ -20,7 +20,7 @@ class PersonTypeAdmin(admin.ModelAdmin):
 
 @admin.register(Person)
 class PersonAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'birth_date', 'display_person_types')
+    list_display = ('name', 'birth_date', 'display_person_types')
     filter_horizontal = ('types',)
 
     def display_person_types(self, obj):
@@ -42,7 +42,7 @@ class WorkAdmin(admin.ModelAdmin):
     filter_horizontal = ('creators',)
 
     def display_creators(self, obj):
-        return ", ".join([f"{creator.first_name} {creator.last_name}" for creator in obj.creators.all()])
+        return ", ".join([f"{creator.name}" for creator in obj.creators.all()])
     display_creators.short_description = 'Creators'
 
 @admin.register(WorkType)

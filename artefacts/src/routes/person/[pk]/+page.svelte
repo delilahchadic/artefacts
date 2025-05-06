@@ -29,7 +29,7 @@
     const jsonData = await response.json();
     data = jsonData;
 
-    wikiSummary = await fetchWikipediaFirstParagraphHTML(data.first_name + " " + data.last_name);
+    wikiSummary = await fetchWikipediaFirstParagraphHTML(data.name);
 
     const imageResponse = await fetch('http://localhost:8000/person/' + prop.data.pk + '/image');
     const jsonImage = await imageResponse.json();
@@ -90,7 +90,7 @@
 
 </script>
 
-<h1 class="text-4xl m-3">{data.first_name} {data.last_name}</h1>
+<h1 class="text-4xl m-3">{data.name}</h1>
 <div class="flex">
   <div >
     <img  class="max-w-[20vw] m-5" src={imageUrl}/>

@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from rest_framework import generics
-from .models import Gallery, GalleryItem, Person, Work, Document, PersonData, PersonType, PersonDataType
+
+from .utils import IIIFParser
+from .models import DocumentType, Gallery, GalleryItem, Person, Work, Document, PersonData, PersonType, PersonDataType
 from .serializers import GalleryItemSerializer, GallerySerializer, PersonDataSerializer, PersonSerializer, WorkSerializer, DocumentSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -64,6 +66,21 @@ def get_works_by_person(request, person_id):
     return Response(serializer.data)
   except Work.DoesNotExist:
     return Response({'error': 'Deck not found'}, status=404) 
+  
+
+@api_view(['POST'])
+def post_iiif(request):
+  iiif_url = request.data.get('iiifUrl') 
+  iiif = IIIFParser(iiif_url)
+
+  person, personCreated= Person.objects.get_or_create(name=iiif.getArists()[0])
+  work, workCreated = Work.objects.get_or_create(name=iiif.getTitle)
+  work.creators.add(person)
+  
+  iiifType = DocumentType.objects.get(name="IIIF")
+  iiifDocument = Document.objects.create(link = iiif_url, work=work, type=iiifType)
+  return Response({"message": "IIIF Document processed and created."}, status=status.HTTP_201_CREATED)
+
     
 @api_view(['GET'])
 def get_iiif(request, work_id):
@@ -104,7 +121,7 @@ def persons(request):
   body = "<div>"
   if person_list:
     for person in person_list:
-      body += f"<h1>{person.first_name} {person.last_name}</h1>"
+      body += f"<h1>{person.name}</h1>"
   else:
     body+= "<h1>no persons found</h1>"
 

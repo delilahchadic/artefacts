@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+# from requests import requests
+import json
 
 # Create your models here.
 class PersonType(models.Model):
@@ -9,16 +11,12 @@ class PersonType(models.Model):
     return self.description
 
 class Person(models.Model):
-  first_name = models.CharField(max_length=50, blank=True)
-  last_name = models.CharField(max_length=50)
+  name = models.CharField(max_length=100)
   birth_date = models.DateField(null=True, blank=True)
-  types = models.ManyToManyField(PersonType, related_name="persons")
+  types = models.ManyToManyField(PersonType, related_name="persons",null=True, blank=True)
 
   def __str__(self):
-    if self.first_name:
-      return f"{self.first_name} {self.last_name}"
-    else:
-      return self.last_name
+    return self.name
 
 class PersonDataType(models.Model):
   name = models.CharField()
@@ -36,7 +34,7 @@ class PersonData(models.Model):
 
 class Work(models.Model):
   name = models.CharField(max_length=100)
-  description = models.CharField()
+  description = models.CharField(null=True, blank=True)
   creators = models.ManyToManyField(Person, related_name="works")
 
   def __str__(self):

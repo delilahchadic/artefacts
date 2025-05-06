@@ -14,7 +14,7 @@
 </script>
 
 <a class="max-w-[20vw] p-4 m-4 shadow-md bg-white" href="/person/{person.id}">
-  <h1 class="text-xs">{person.first_name} {person.last_name}</h1>
+  <h1 class="text-xs">{person.name}</h1>
   <img  class="" src={imageUrl}/>
 </a>
 

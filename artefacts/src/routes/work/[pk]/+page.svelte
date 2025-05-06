@@ -68,7 +68,7 @@
       <p class="text-sm mr-40">{@html description}</p>
       <a  class="block" href={iiif_link}>{iiif_link}</a>
       {#each creators as creator}
-        <a href='/person/{creator.id}/'> more by {creator.first_name} {creator.last_name}</a>
+        <a href='/person/{creator.id}/'> more by {creator.name}</a>
       {/each}
     </div>
   </div>
