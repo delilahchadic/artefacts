@@ -71,15 +71,16 @@ def get_works_by_person(request, person_id):
 @api_view(['POST'])
 def post_iiif(request):
   iiif_url = request.data.get('iiifUrl') 
+  artist = request.data.get('artist') 
   iiif = IIIFParser(iiif_url)
 
-  person, personCreated= Person.objects.get_or_create(name=iiif.getArists()[0])
+  person, personCreated= Person.objects.get_or_create(name=artist)
   work, workCreated = Work.objects.get_or_create(name=iiif.getTitle)
   work.creators.add(person)
   
   iiifType = DocumentType.objects.get(name="IIIF")
   iiifDocument = Document.objects.create(link = iiif_url, work=work, type=iiifType)
-  return Response({"message": "IIIF Document processed and created."}, status=status.HTTP_201_CREATED)
+  return Response({"message": "IIIF Document processed and created."}, status=201)
 
     
 @api_view(['GET'])
