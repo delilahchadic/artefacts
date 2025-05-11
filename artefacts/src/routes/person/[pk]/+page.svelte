@@ -33,7 +33,7 @@
 
     const imageResponse = await fetch('http://localhost:8000/person/' + prop.data.pk + '/image');
     const jsonImage = await imageResponse.json();
-    imageUrl = jsonImage.value;
+    // imageUrl = jsonImage.value;
 
     const workResponse = await fetch('http://localhost:8000/person/works/' + prop.data.pk + "");
     const jsonWorkData = await workResponse.json();
@@ -66,6 +66,9 @@
         tempDiv.innerHTML = htmlContent;
         
         const firstParagraph = tempDiv.querySelector('.mw-parser-output > p:not(.mw-empty-elt)');
+        const images = tempDiv.querySelectorAll('img');
+        console.log(images)
+        imageUrl = images[0].src;
         const links = firstParagraph?.querySelectorAll('a');
         
 
